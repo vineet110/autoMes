@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto Mailer</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Auto Mailer</h1>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="tab active" data-channel="email">Email</button>
+      <button type="button" role="tab" class="tab" data-channel="whatsapp">WhatsApp</button>
+    </div>
+    <p id="sender-status" class="muted email-only">Checking sending account…</p>
+  </header>
+
+  <section class="card whatsapp-only" hidden>
+    <h2>WhatsApp connection</h2>
+    <p id="wa-status" class="muted">Checking…</p>
+    <button type="button" id="wa-login" class="secondary">Connect WhatsApp</button>
+    <p class="warning">
+      Messages are sent from <strong>your own WhatsApp number</strong> through WhatsApp Web, one at a time,
+      with a random pause between them. WhatsApp does not allow this and may ban numbers that message many
+      people, especially people who haven't saved your number. Keep the browser window open while sending.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>1. Recipients</h2>
+    <p class="muted">Upload one or more CSV, PDF, Word (.docx) or TXT files. Every <span class="email-only">email address</span><span class="whatsapp-only" hidden>mobile number</span> found is added below.</p>
+    <input type="file" id="recipient-files" multiple accept=".csv,.pdf,.docx,.txt">
+    <div id="parse-result" class="muted"></div>
+    <label for="recipients">Recipients (one per line — edit freely)</label>
+    <textarea id="recipients" rows="8" placeholder="name@example.com"></textarea>
+    <p class="muted whatsapp-only" hidden>10-digit numbers are treated as Indian (+91). Use +country code for other countries.</p>
+    <p id="recipient-count" class="muted">0 recipients</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Compose</h2>
+    <div class="email-only">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject">
+    </div>
+    <label for="body">Message</label>
+    <textarea id="body" rows="10"></textarea>
+    <div class="email-only">
+      <label for="cc">CC on every email (optional, comma separated)</label>
+      <input type="text" id="cc">
+    </div>
+    <label for="attachments">Attachments (optional)</label>
+    <input type="file" id="attachments" multiple>
+    <div class="row email-only">
+      <input type="email" id="test-to" placeholder="Send a test copy to…">
+      <button type="button" id="send-test" class="secondary">Send test</button>
+    </div>
+    <p id="test-result" class="muted email-only"></p>
+  </section>
+
+  <section class="card">
+    <h2>3. Send</h2>
+    <p class="muted">Each person gets their own separate message — nobody sees anyone else's address or number.</p>
+    <button type="button" id="review">Review &amp; send</button>
+    <p id="send-error" class="error"></p>
+  </section>
+
+  <section class="card" id="job-section" hidden>
+    <h2 id="job-title">Progress</h2>
+    <div class="progress"><div id="progress-bar"></div></div>
+    <p id="job-summary"></p>
+    <p id="job-error" class="error"></p>
+    <div class="row">
+      <button type="button" id="cancel-job" class="secondary">Stop</button>
+      <button type="button" id="retry-job" class="secondary">Resume / retry failed</button>
+    </div>
+    <table>
+      <thead><tr><th>Recipient</th><th>Status</th><th>Detail</th></tr></thead>
+      <tbody id="job-recipients"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>History</h2>
+    <table>
+      <thead><tr><th>#</th><th>Date</th><th>Type</th><th>Subject</th><th>Sent</th><th>Failed</th><th>Status</th></tr></thead>
+      <tbody id="history"></tbody>
+    </table>
+  </section>
+</main>
+
+<dialog id="confirm-dialog">
+  <h2>Confirm sending</h2>
+  <dl>
+    <dt>Recipients</dt><dd id="c-count"></dd>
+    <div class="email-only">
+      <dt>Subject</dt><dd id="c-subject"></dd>
+      <dt>CC</dt><dd id="c-cc"></dd>
+    </div>
+    <dt>Attachments</dt><dd id="c-attachments"></dd>
+  </dl>
+  <pre id="c-body"></pre>
+  <p id="c-time" class="muted"></p>
+  <div class="row">
+    <button type="button" id="confirm-cancel" class="secondary">Back</button>
+    <button type="button" id="confirm-send">Send now</button>
+  </div>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

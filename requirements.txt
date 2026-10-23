@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+email-validator
+pypdf
+python-docx
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+pytest
+httpx
+playwright

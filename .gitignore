@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Google OAuth
+token.json
+credentials.json
+
+# Database
+*.sqlite
+*.db
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/
+
+# WhatsApp Web login session
+whatsapp_profile/
+
+# Test caches and end-to-end test output
+.pytest_cache/
+tests/e2e/mail/
+tests/e2e/files/
+tests/e2e/wa_profile/
+tests/e2e/*.pem
+tests/e2e/*.txt
